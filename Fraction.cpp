@@ -24,6 +24,29 @@ int Fraction::get_integer_part()
 
 Fraction Fraction::operator+(Fraction& other)
 {
+	return sum_of_fractions(other);
+}
+
+Fraction Fraction::operator+(int other_int)
+{
+	Fraction other = int_to_fraction(other_int);
+	return sum_of_fractions(other);
+
+}
+
+void Fraction::operator+=(Fraction& other)
+{
+	add_to_current_fraction(other);
+}
+
+void Fraction::operator+=(int other_int)
+{
+	Fraction other = int_to_fraction(other_int);
+	add_to_current_fraction(other);
+}
+
+Fraction Fraction::sum_of_fractions(Fraction& other)
+{
 	to_common_denominator(other);
 
 	Fraction result(this->numerator + other.numerator, this->denominator);
@@ -32,10 +55,14 @@ Fraction Fraction::operator+(Fraction& other)
 	return result;
 }
 
-void Fraction::operator+=(Fraction& other)
+Fraction Fraction::int_to_fraction(int number_to_translate)
+{
+	return Fraction(number_to_translate, 1);
+}
+
+void Fraction::add_to_current_fraction(Fraction& other)
 {
 	to_common_denominator(other);
-
 	this->numerator += other.numerator;
 	reduce_fraction(this->numerator, this->denominator);
 }
