@@ -1,2 +1,0 @@
-D:\ППвИС\Lab_1\Debug\Lab_1.exe
-D:\ППвИС\Lab_1\Debug\Lab_1.pdb
