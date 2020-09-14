@@ -35,34 +35,66 @@ double Fraction::to_double()
 	return double(this->numerator) / this->denominator;
 }
 
-Fraction Fraction::operator+(Fraction& other)
+Fraction Fraction::operator+(Fraction& other_fraction)
 {
-	return sum_of_fractions(other);
+	return sum_of_fractions(other_fraction);
 }
 
 Fraction Fraction::operator+(int other_int)
 {
-	Fraction other = int_to_fraction(other_int);
-	return sum_of_fractions(other);
+	Fraction other_fraction = int_to_fraction(other_int);
+	return sum_of_fractions(other_fraction);
 
 }
 
-void Fraction::operator+=(Fraction& other)
+void Fraction::operator+=(Fraction& other_fraction)
 {
-	add_to_current_fraction(other);
+	add_to_current_fraction(other_fraction);
 }
 
 void Fraction::operator+=(int other_int)
 {
-	Fraction other = int_to_fraction(other_int);
-	add_to_current_fraction(other);
+	Fraction other_fraction = int_to_fraction(other_int);
+	add_to_current_fraction(other_fraction);
 }
 
-Fraction Fraction::sum_of_fractions(Fraction& other)
+Fraction Fraction::operator-(Fraction& other_fraction)
 {
-	to_common_denominator(other);
+	return difference_of_fractions(other_fraction);
+}
 
-	Fraction result(this->numerator + other.numerator, this->denominator);
+Fraction Fraction::operator-(int other_int)
+{
+	Fraction other_fraction = int_to_fraction(other_int);
+	return difference_of_fractions(other_fraction);
+}
+
+void Fraction::operator-=(Fraction& other_fraction)
+{
+	remove_from_current_fraction(other_fraction);
+}
+
+void Fraction::operator-=(int other_int)
+{
+	Fraction other_fraction = int_to_fraction(other_int);
+	remove_from_current_fraction(other_fraction);
+}
+
+Fraction Fraction::difference_of_fractions(Fraction& other_fraction)
+{
+	to_common_denominator(other_fraction);
+
+	Fraction result(this->numerator - other_fraction.numerator, this->denominator);
+	reduce_fraction(result.numerator, result.denominator);
+
+	return result;
+}
+
+Fraction Fraction::sum_of_fractions(Fraction& other_fraction)
+{
+	to_common_denominator(other_fraction);
+
+	Fraction result(this->numerator + other_fraction.numerator, this->denominator);
 	reduce_fraction(result.numerator, result.denominator);
 
 	return result;
@@ -73,10 +105,17 @@ Fraction Fraction::int_to_fraction(int number_to_translate)
 	return Fraction(number_to_translate, 1);
 }
 
-void Fraction::add_to_current_fraction(Fraction& other)
+void Fraction::add_to_current_fraction(Fraction& other_fraction)
 {
-	to_common_denominator(other);
-	this->numerator += other.numerator;
+	to_common_denominator(other_fraction);
+	this->numerator += other_fraction.numerator;
+	reduce_fraction(this->numerator, this->denominator);
+}
+
+void Fraction::remove_from_current_fraction(Fraction& other_fraction)
+{
+	to_common_denominator(other_fraction);
+	this->numerator -= other_fraction.numerator;
 	reduce_fraction(this->numerator, this->denominator);
 }
 
@@ -91,16 +130,16 @@ void Fraction::reduce_fraction(int& numerator, int& denominator)
 		return;
 }
 
-void Fraction::to_common_denominator(Fraction& other)
+void Fraction::to_common_denominator(Fraction& other_fraction)
 {
-	int lcm = get_lcm(this->denominator, other.denominator);
+	int lcm = get_lcm(this->denominator, other_fraction.denominator);
 	if (lcm / this->denominator != 1) {
 		this->numerator *= (lcm / this->denominator);
 		this->denominator = lcm;
 	}
-	if (lcm / other.denominator != 1) {
-		other.numerator *= (lcm / other.denominator);
-		other.denominator = lcm;
+	if (lcm / other_fraction.denominator != 1) {
+		other_fraction.numerator *= (lcm / other_fraction.denominator);
+		other_fraction.denominator = lcm;
 	}
 }
 
