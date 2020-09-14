@@ -5,6 +5,7 @@ public:
 	int get_numerator();
 	int get_denominator();
 	int get_integer_part();
+	double to_double();
 	Fraction operator + (Fraction& other);
 	Fraction operator + (int other_int);
 	void operator += (Fraction& other);
@@ -18,6 +19,7 @@ private:
 	void to_common_denominator(Fraction& other);
 	int get_gcd(int first_number, int second_number);
 	int get_lcm(int first_number, int second_number);
+	bool check_for_correct_input_data(int& numerator, int& denominator);
 
 	int numerator;
 	int denominator;

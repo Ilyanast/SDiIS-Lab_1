@@ -1,9 +1,17 @@
 #include "Fraction.h"
+#include <math.h>
 
 Fraction::Fraction(int numerator, int denominator)
 {
-	this->numerator = numerator;
-	this->denominator = denominator;
+	if (!check_for_correct_input_data(numerator, denominator)) {
+		this->numerator = 0;
+		this->denominator = 1;
+	}
+	else {
+		this->numerator = numerator;
+		this->denominator = denominator;
+	}
+
 	reduce_fraction(this->numerator, this->denominator);
 }
 
@@ -20,6 +28,11 @@ int Fraction::get_denominator()
 int Fraction::get_integer_part()
 {
 	return numerator / denominator;
+}
+
+double Fraction::to_double()
+{
+	return double(this->numerator) / this->denominator;
 }
 
 Fraction Fraction::operator+(Fraction& other)
@@ -69,7 +82,7 @@ void Fraction::add_to_current_fraction(Fraction& other)
 
 void Fraction::reduce_fraction(int& numerator, int& denominator)
 {
-	int gcd = get_gcd(numerator, denominator);
+	int gcd = get_gcd(abs(numerator), denominator);
 	if (gcd != 1) {
 		numerator /= gcd;
 		denominator /= gcd;
@@ -108,4 +121,27 @@ int Fraction::get_gcd(int first_number, int second_number)
 int Fraction::get_lcm(int first_number, int second_number)
 {
 	return (first_number * second_number) / get_gcd(first_number, second_number);
+}
+
+bool Fraction::check_for_correct_input_data(int& numerator, int& denominator)
+{
+	if (denominator == 0 || numerator == 0) {
+		return false;
+	}
+
+	if (numerator > 0 && denominator < 0) {
+		numerator = -numerator;
+		abs(denominator);
+
+		return true;
+	}
+
+	if (numerator < 0 && denominator < 0) {
+		abs(numerator);
+		abs(denominator);
+
+		return true;
+	}
+
+	return true;
 }
