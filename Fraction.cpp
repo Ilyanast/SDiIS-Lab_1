@@ -24,20 +24,20 @@ int Fraction::get_integer_part()
 
 Fraction Fraction::operator+(Fraction& other)
 {
-	int lcm = get_lcm(this->denominator, other.denominator);
-	if (lcm / this->denominator != 1) {
-		this->numerator *= (lcm / this->denominator);
-		this->denominator = lcm;
-	}
-	if (lcm / other.denominator != 1) {
-		other.numerator *= (lcm / other.denominator);
-		other.denominator = lcm;
-	}
+	to_common_denominator(other);
 
-	Fraction result(this->numerator + other.numerator, lcm);
+	Fraction result(this->numerator + other.numerator, this->denominator);
 	reduce_fraction(result.numerator, result.denominator);
 
 	return result;
+}
+
+void Fraction::operator+=(Fraction& other)
+{
+	to_common_denominator(other);
+
+	this->numerator += other.numerator;
+	reduce_fraction(this->numerator, this->denominator);
 }
 
 void Fraction::reduce_fraction(int& numerator, int& denominator)
@@ -49,6 +49,19 @@ void Fraction::reduce_fraction(int& numerator, int& denominator)
 	}
 	else
 		return;
+}
+
+void Fraction::to_common_denominator(Fraction& other)
+{
+	int lcm = get_lcm(this->denominator, other.denominator);
+	if (lcm / this->denominator != 1) {
+		this->numerator *= (lcm / this->denominator);
+		this->denominator = lcm;
+	}
+	if (lcm / other.denominator != 1) {
+		other.numerator *= (lcm / other.denominator);
+		other.denominator = lcm;
+	}
 }
 
 int Fraction::get_gcd(int first_number, int second_number)
