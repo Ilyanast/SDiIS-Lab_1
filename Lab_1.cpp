@@ -1,20 +1,80 @@
-﻿// Lab_1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <iostream>
 
-#include <iostream>
+using namespace std;
 
-int main()
+class Fraction
 {
-    std::cout << "Hello World!\n";
+public:
+	Fraction(int numerator, int denominator) {
+		this->numerator = numerator;
+		this->denominator = denominator;
+		reduce_fraction();
+	};
+
+	int get_numerator() {
+		return numerator;
+	}
+
+	int get_denominator() {
+		return denominator;
+	}
+
+	int get_integer_part() {
+		return numerator / denominator;
+	}
+	//~Fraction();
+
+private:
+	int numerator;
+	int denominator;
+
+	void reduce_fraction() {
+		int gcd = get_gcd(numerator, denominator);
+		if (gcd != 1) {
+			numerator /= gcd;
+			denominator /= gcd;
+		}
+		else
+			return;
+	}
+
+	int get_gcd(int numerator, int denominator) {
+
+		int gcd = 1, largest_part;
+
+		if (numerator > denominator)
+			largest_part = numerator;
+		else
+			largest_part = denominator;
+
+		while (numerator > 1 && denominator > 1) {
+			for (int i = 2; i <= largest_part; i++) {
+				if (numerator % i == 0 && denominator % i == 0) {
+					gcd *= i;
+					numerator /= i;
+					denominator /= i;
+					break;
+				}
+				if (numerator % i == 0) {
+					numerator /= i;
+					break;
+				}
+				if (denominator % i == 0) {
+					denominator /= i;
+					break;
+				}
+			}
+		}
+		return gcd;
+	}
+
+};
+
+
+int main() {
+	int a, b;
+	cin >> a >> b;
+	Fraction our_fraction(a, b);
+	cout<< endl << our_fraction.get_numerator() << endl << our_fraction.get_denominator() <<
+		endl << endl << our_fraction.get_integer_part() << endl;
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
