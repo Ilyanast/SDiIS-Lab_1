@@ -1,3 +1,6 @@
+#include <iostream>
+#include <ostream>
+
 class Fraction
 {
 public:
@@ -8,24 +11,25 @@ public:
 	double to_double();
 	Fraction operator + (Fraction& other_fraction);
 	Fraction operator + (const int other_int);
-	Fraction & operator += (Fraction& other_fraction);
-	Fraction & operator += (const int other_int);
+	Fraction& operator += (Fraction& other_fraction);
+	Fraction& operator += (const int other_int);
 	Fraction operator - (Fraction& other_fraction);
 	Fraction operator - (const int other_int);
-	Fraction & operator -= (Fraction& other_fraction);
-	Fraction & operator -= (const int other_int);
+	Fraction& operator -= (Fraction& other_fraction);
+	Fraction& operator -= (const int other_int);
 	Fraction operator * (Fraction& other_fraction);
 	Fraction operator * (const int other_int);
-	Fraction & operator *= (Fraction& other_fraction);
-	Fraction & operator *= (const int other_int);
+	Fraction& operator *= (Fraction& other_fraction);
+	Fraction& operator *= (const int other_int);
 	Fraction operator / (Fraction& other_fraction);
 	Fraction operator / (const int other_int);
-	Fraction & operator /= (Fraction& other_fraction);
-	Fraction & operator /= (const int other_int);
+	Fraction& operator /= (Fraction& other_fraction);
+	Fraction& operator /= (const int other_int);
 	Fraction operator ++ (int);
 	Fraction operator -- (int);
-	Fraction & operator ++ ();
-	Fraction & operator -- ();
+	Fraction& operator ++ ();
+	Fraction& operator -- ();
+	Fraction operator - ();
 	bool operator == (Fraction& other_fraction);
 	bool operator == (int other_int);
 	bool operator > (Fraction& other_fraction);
@@ -36,12 +40,12 @@ public:
 	bool operator < (int other_int);
 	bool operator >= (int other_int);
 	bool operator <= (int other_int);
+	friend std::ostream& operator<< (std::ostream& out, const Fraction& fraction);
 
 private:
 	Fraction division_of_fractions(Fraction& other_fraction);
 	Fraction multiplication_of_fractions(Fraction& other_fraction);
-	Fraction difference_of_fractions(Fraction& other_fraction);
-	Fraction sum_of_fractions(Fraction& other_fraction);
+	Fraction sum_of_fractions(Fraction other_fraction);
 	Fraction int_to_fraction(int number_to_translate);
 	void reduce_numbers(int& numerator, int& denominator);
 	void to_common_denominator(Fraction& other_fraction);

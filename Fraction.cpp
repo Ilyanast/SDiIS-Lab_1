@@ -58,13 +58,13 @@ Fraction & Fraction::operator+=(const int other_int)
 
 Fraction Fraction::operator-(Fraction& other_fraction)
 {
-	return difference_of_fractions(other_fraction);
+	return sum_of_fractions(-other_fraction);
 }
 
 Fraction Fraction::operator-(const int other_int)
 {
 	Fraction other_fraction = int_to_fraction(other_int);
-	return difference_of_fractions(other_fraction);
+	return sum_of_fractions(-other_fraction);
 }
 
 Fraction & Fraction::operator-=(Fraction& other_fraction)
@@ -143,6 +143,11 @@ Fraction & Fraction::operator--()
 	return *this -= 1;
 }
 
+Fraction Fraction::operator-()
+{
+	return Fraction(-this->numerator, this->denominator);
+}
+
 bool Fraction::operator==(Fraction& other_fraction)
 {
 	return (this->numerator == other_fraction.numerator && this->denominator == other_fraction.denominator);
@@ -193,6 +198,11 @@ bool Fraction::operator<=(int other_int)
 	return this->to_double() <= double(other_int);
 }
 
+std::ostream& operator<< (std::ostream& out, const Fraction& fraction)
+{
+	return out << fraction.numerator << "/" << fraction.denominator;;
+}
+
 Fraction Fraction::division_of_fractions(Fraction& other_fraction)
 {
 	Fraction result(this->numerator * other_fraction.denominator, this->denominator * other_fraction.numerator);
@@ -209,17 +219,7 @@ Fraction Fraction::multiplication_of_fractions(Fraction& other_fraction)
 	return result;
 }
 
-Fraction Fraction::difference_of_fractions(Fraction& other_fraction)
-{
-	to_common_denominator(other_fraction);
-
-	Fraction result(this->numerator - other_fraction.numerator, this->denominator);
-	reduce_numbers(result.numerator, result.denominator);
-
-	return result;
-}
-
-Fraction Fraction::sum_of_fractions(Fraction& other_fraction)
+Fraction Fraction::sum_of_fractions(Fraction other_fraction)
 {
 	to_common_denominator(other_fraction);
 
@@ -237,13 +237,11 @@ Fraction Fraction::int_to_fraction(const int number_to_translate)
 
 void Fraction::reduce_numbers(int& numerator, int& denominator)
 {
-	int gcd = get_gcd(abs(numerator), denominator);
+	int gcd = get_gcd(numerator, denominator);
 	if (gcd != 1) {
 		numerator /= gcd;
 		denominator /= gcd;
 	}
-	else
-		return;
 }
 
 void Fraction::to_common_denominator(Fraction& other_fraction)
@@ -261,6 +259,9 @@ void Fraction::to_common_denominator(Fraction& other_fraction)
 
 int Fraction::get_gcd(int first_number, int second_number)
 {
+	first_number = abs(first_number);
+	second_number = abs(second_number);
+
 	while (first_number != 0 && second_number != 0) {
 		if (first_number > second_number) {
 			first_number = first_number % second_number;
@@ -275,6 +276,9 @@ int Fraction::get_gcd(int first_number, int second_number)
 
 int Fraction::get_lcm(int first_number, int second_number)
 {
+	first_number = abs(first_number);
+	second_number = abs(second_number);
+
 	return (first_number * second_number) / get_gcd(first_number, second_number);
 }
 
