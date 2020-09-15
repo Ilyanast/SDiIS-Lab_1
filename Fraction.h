@@ -14,14 +14,20 @@ public:
 	Fraction operator - (int other_int);
 	void operator -= (Fraction& other_fraction);
 	void operator -= (int other_int);
+	Fraction operator * (Fraction& other_fraction);
+	Fraction operator * (int other_int);
+	void operator *= (Fraction& other_fraction);
+	void operator *= (int other_int);
 
 private:
+	Fraction multiplication_of_fractions(Fraction& other_fraction);
 	Fraction difference_of_fractions(Fraction& other_fraction);
 	Fraction sum_of_fractions(Fraction& other_fraction);
 	Fraction int_to_fraction(int number_to_translate);
+	void multiply_by_current_fraction(Fraction& other_fraction);
 	void add_to_current_fraction(Fraction& other_fraction);
 	void remove_from_current_fraction(Fraction& other_fraction);
-	void reduce_fraction(int& numerator, int& denominator);
+	void reduce_numbers(int& numerator, int& denominator);
 	void to_common_denominator(Fraction& other_fraction);
 	int get_gcd(int first_number, int second_number);
 	int get_lcm(int first_number, int second_number);
