@@ -40,22 +40,20 @@ Fraction Fraction::operator+(Fraction& other_fraction)
 	return sum_of_fractions(other_fraction);
 }
 
-Fraction Fraction::operator+(int other_int)
+Fraction Fraction::operator+(const int other_int)
 {
 	Fraction other_fraction = int_to_fraction(other_int);
 	return sum_of_fractions(other_fraction);
-
 }
 
-void Fraction::operator+=(Fraction& other_fraction)
+Fraction & Fraction::operator+=(Fraction& other_fraction)
 {
-	add_to_current_fraction(other_fraction);
+	return *this = *this + other_fraction;
 }
 
-void Fraction::operator+=(int other_int)
+Fraction & Fraction::operator+=(const int other_int)
 {
-	Fraction other_fraction = int_to_fraction(other_int);
-	add_to_current_fraction(other_fraction);
+	return *this = *this + other_int;
 }
 
 Fraction Fraction::operator-(Fraction& other_fraction)
@@ -63,21 +61,20 @@ Fraction Fraction::operator-(Fraction& other_fraction)
 	return difference_of_fractions(other_fraction);
 }
 
-Fraction Fraction::operator-(int other_int)
+Fraction Fraction::operator-(const int other_int)
 {
 	Fraction other_fraction = int_to_fraction(other_int);
 	return difference_of_fractions(other_fraction);
 }
 
-void Fraction::operator-=(Fraction& other_fraction)
+Fraction & Fraction::operator-=(Fraction& other_fraction)
 {
-	remove_from_current_fraction(other_fraction);
+	return *this = *this - other_fraction;
 }
 
-void Fraction::operator-=(int other_int)
+Fraction & Fraction::operator-=(const int other_int)
 {
-	Fraction other_fraction = int_to_fraction(other_int);
-	remove_from_current_fraction(other_fraction);
+	return *this = *this - other_int;
 }
 
 Fraction Fraction::operator*(Fraction& other_fraction)
@@ -85,21 +82,20 @@ Fraction Fraction::operator*(Fraction& other_fraction)
 	return multiplication_of_fractions(other_fraction);
 }
 
-Fraction Fraction::operator*(int other_int)
+Fraction Fraction::operator*(const int other_int)
 {
 	Fraction other_fraction = int_to_fraction(other_int);
 	return multiplication_of_fractions(other_fraction);
 }
 
-void Fraction::operator*=(Fraction& other_fraction)
+Fraction & Fraction::operator*=(Fraction& other_fraction)
 {
-	multiply_by_current_fraction(other_fraction);
+	return *this = *this * other_fraction;
 }
 
-void Fraction::operator*=(int other_int)
+Fraction & Fraction::operator*=(const int other_int)
 {
-	Fraction other_fraction = int_to_fraction(other_int);
-	multiply_by_current_fraction(other_fraction);
+	return *this = *this * other_int;
 }
 
 Fraction Fraction::operator/(Fraction& other_fraction)
@@ -107,21 +103,94 @@ Fraction Fraction::operator/(Fraction& other_fraction)
 	return division_of_fractions(other_fraction);
 }
 
-Fraction Fraction::operator/(int other_int)
+Fraction Fraction::operator/(const int other_int)
 {
 	Fraction other_fraction = int_to_fraction(other_int);
 	return division_of_fractions(other_fraction);
 }
 
-void Fraction::operator/=(Fraction& other_fraction)
+Fraction & Fraction::operator/=(Fraction& other_fraction)
 {
-	split_current_fraction(other_fraction);
+	return *this = *this / other_fraction;
 }
 
-void Fraction::operator/=(int other_int)
+Fraction & Fraction::operator/=(const int other_int)
 {
-	Fraction other_fraction = int_to_fraction(other_int);
-	split_current_fraction(other_fraction);
+	return *this = *this / other_int;
+}
+
+Fraction Fraction::operator++(int)
+{
+	Fraction other_fraction(1, 1), temp_fraction(this->numerator, this->denominator);
+	*this += 1;
+	return temp_fraction;
+}
+
+Fraction Fraction::operator--(int)
+{
+	Fraction other_fraction(1, 1), temp_fraction(this->numerator, this->denominator);
+	*this -= 1;
+	return temp_fraction;
+}
+
+Fraction & Fraction::operator++()
+{
+	return *this += 1;
+}
+
+Fraction & Fraction::operator--()
+{
+	return *this -= 1;
+}
+
+bool Fraction::operator==(Fraction& other_fraction)
+{
+	return (this->numerator == other_fraction.numerator && this->denominator == other_fraction.denominator);
+}
+
+bool Fraction::operator==(int other_int)
+{
+	return false;
+}
+
+bool Fraction::operator>(Fraction& other_fraction)
+{
+	return this->to_double() > other_fraction.to_double();
+}
+
+bool Fraction::operator<(Fraction& other_fraction)
+{
+	return this->to_double() < other_fraction.to_double();
+}
+
+bool Fraction::operator>=(Fraction& other_fraction)
+{
+	return this->to_double() >= other_fraction.to_double();
+}
+
+bool Fraction::operator<=(Fraction& other_fraction)
+{
+	return this->to_double() <= other_fraction.to_double();
+}
+
+bool Fraction::operator>(int other_int)
+{
+	return this->to_double() > double(other_int);
+}
+
+bool Fraction::operator<(int other_int)
+{
+	return this->to_double() < double(other_int);
+}
+
+bool Fraction::operator>=(int other_int)
+{
+	return this->to_double() >= double(other_int);
+}
+
+bool Fraction::operator<=(int other_int)
+{
+	return this->to_double() <= double(other_int);
 }
 
 Fraction Fraction::division_of_fractions(Fraction& other_fraction)
@@ -160,38 +229,11 @@ Fraction Fraction::sum_of_fractions(Fraction& other_fraction)
 	return result;
 }
 
-Fraction Fraction::int_to_fraction(int number_to_translate)
+Fraction Fraction::int_to_fraction(const int number_to_translate)
 {
 	return Fraction(number_to_translate, 1);
 }
 
-void Fraction::split_current_fraction(Fraction& other_fraction)
-{
-	this->numerator *= other_fraction.denominator;
-	this->denominator *= other_fraction.numerator;
-	reduce_numbers(this->numerator, this->denominator);
-}
-
-void Fraction::multiply_by_current_fraction(Fraction& other_fraction)
-{
-	this->numerator *= other_fraction.numerator;
-	this->denominator *= other_fraction.denominator;
-	reduce_numbers(this->numerator, this->denominator);
-}
-
-void Fraction::add_to_current_fraction(Fraction& other_fraction)
-{
-	to_common_denominator(other_fraction);
-	this->numerator += other_fraction.numerator;
-	reduce_numbers(this->numerator, this->denominator);
-}
-
-void Fraction::remove_from_current_fraction(Fraction& other_fraction)
-{
-	to_common_denominator(other_fraction);
-	this->numerator -= other_fraction.numerator;
-	reduce_numbers(this->numerator, this->denominator);
-}
 
 void Fraction::reduce_numbers(int& numerator, int& denominator)
 {

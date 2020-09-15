@@ -4,9 +4,8 @@
 using namespace std;
 
 int main() {
-	Fraction our_first_fraction(-77, 5), a2(2, 7);
-	our_first_fraction /= 2;
-	cout << our_first_fraction.get_numerator() << endl << our_first_fraction.get_denominator() << endl << endl << our_first_fraction.to_double();
+	Fraction a(-2, 3), a2(135, 35);
+	cout << (a + a2).get_numerator() << endl << (a + a2).get_denominator() << endl;
 	return 0;
 }
 
