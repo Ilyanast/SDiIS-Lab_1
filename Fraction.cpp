@@ -102,6 +102,36 @@ void Fraction::operator*=(int other_int)
 	multiply_by_current_fraction(other_fraction);
 }
 
+Fraction Fraction::operator/(Fraction& other_fraction)
+{
+	return division_of_fractions(other_fraction);
+}
+
+Fraction Fraction::operator/(int other_int)
+{
+	Fraction other_fraction = int_to_fraction(other_int);
+	return division_of_fractions(other_fraction);
+}
+
+void Fraction::operator/=(Fraction& other_fraction)
+{
+	split_current_fraction(other_fraction);
+}
+
+void Fraction::operator/=(int other_int)
+{
+	Fraction other_fraction = int_to_fraction(other_int);
+	split_current_fraction(other_fraction);
+}
+
+Fraction Fraction::division_of_fractions(Fraction& other_fraction)
+{
+	Fraction result(this->numerator * other_fraction.denominator, this->denominator * other_fraction.numerator);
+	reduce_numbers(result.numerator, result.denominator);
+
+	return result;
+}
+
 Fraction Fraction::multiplication_of_fractions(Fraction& other_fraction)
 {
 	Fraction result(this->numerator * other_fraction.numerator, this->denominator * other_fraction.denominator);
@@ -133,6 +163,13 @@ Fraction Fraction::sum_of_fractions(Fraction& other_fraction)
 Fraction Fraction::int_to_fraction(int number_to_translate)
 {
 	return Fraction(number_to_translate, 1);
+}
+
+void Fraction::split_current_fraction(Fraction& other_fraction)
+{
+	this->numerator *= other_fraction.denominator;
+	this->denominator *= other_fraction.numerator;
+	reduce_numbers(this->numerator, this->denominator);
 }
 
 void Fraction::multiply_by_current_fraction(Fraction& other_fraction)

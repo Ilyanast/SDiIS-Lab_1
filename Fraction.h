@@ -18,12 +18,19 @@ public:
 	Fraction operator * (int other_int);
 	void operator *= (Fraction& other_fraction);
 	void operator *= (int other_int);
+	Fraction operator / (Fraction& other_fraction);
+	Fraction operator / (int other_int);
+	void operator /= (Fraction& other_fraction);
+	void operator /= (int other_int);
+
 
 private:
+	Fraction division_of_fractions(Fraction& other_fraction);
 	Fraction multiplication_of_fractions(Fraction& other_fraction);
 	Fraction difference_of_fractions(Fraction& other_fraction);
 	Fraction sum_of_fractions(Fraction& other_fraction);
 	Fraction int_to_fraction(int number_to_translate);
+	void split_current_fraction(Fraction& other_fraction);
 	void multiply_by_current_fraction(Fraction& other_fraction);
 	void add_to_current_fraction(Fraction& other_fraction);
 	void remove_from_current_fraction(Fraction& other_fraction);
