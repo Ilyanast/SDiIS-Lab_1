@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab_1", "Lab_1.vcxproj", "{E304ECAD-5300-40C0-BEFD-03C4F864D0F1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab_1.Test", "Lab_1.Test\Lab_1.Test.vcxproj", "{5A672DD8-57F1-4C7B-B70A-57C62AF16A4D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E304ECAD-5300-40C0-BEFD-03C4F864D0F1} = {E304ECAD-5300-40C0-BEFD-03C4F864D0F1}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +26,14 @@ Global
 		{E304ECAD-5300-40C0-BEFD-03C4F864D0F1}.Release|x64.Build.0 = Release|x64
 		{E304ECAD-5300-40C0-BEFD-03C4F864D0F1}.Release|x86.ActiveCfg = Release|Win32
 		{E304ECAD-5300-40C0-BEFD-03C4F864D0F1}.Release|x86.Build.0 = Release|Win32
+		{5A672DD8-57F1-4C7B-B70A-57C62AF16A4D}.Debug|x64.ActiveCfg = Debug|x64
+		{5A672DD8-57F1-4C7B-B70A-57C62AF16A4D}.Debug|x64.Build.0 = Debug|x64
+		{5A672DD8-57F1-4C7B-B70A-57C62AF16A4D}.Debug|x86.ActiveCfg = Debug|Win32
+		{5A672DD8-57F1-4C7B-B70A-57C62AF16A4D}.Debug|x86.Build.0 = Debug|Win32
+		{5A672DD8-57F1-4C7B-B70A-57C62AF16A4D}.Release|x64.ActiveCfg = Release|x64
+		{5A672DD8-57F1-4C7B-B70A-57C62AF16A4D}.Release|x64.Build.0 = Release|x64
+		{5A672DD8-57F1-4C7B-B70A-57C62AF16A4D}.Release|x86.ActiveCfg = Release|Win32
+		{5A672DD8-57F1-4C7B-B70A-57C62AF16A4D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

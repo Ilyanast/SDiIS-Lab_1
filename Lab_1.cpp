@@ -4,9 +4,8 @@
 using namespace std;
 
 int main() {
-	Fraction a(-2, 3), a2(135, 35);
 
-	cout << a*a2;
+	cout << "Result of testing different operators are shown in tests";
 	return 0;
 }
 

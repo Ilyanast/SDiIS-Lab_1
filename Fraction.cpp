@@ -46,12 +46,12 @@ Fraction Fraction::operator+(const int other_int)
 	return sum_of_fractions(other_fraction);
 }
 
-Fraction & Fraction::operator+=(Fraction& other_fraction)
+Fraction& Fraction::operator+=(Fraction& other_fraction)
 {
 	return *this = *this + other_fraction;
 }
 
-Fraction & Fraction::operator+=(const int other_int)
+Fraction& Fraction::operator+=(const int other_int)
 {
 	return *this = *this + other_int;
 }
@@ -67,12 +67,12 @@ Fraction Fraction::operator-(const int other_int)
 	return sum_of_fractions(-other_fraction);
 }
 
-Fraction & Fraction::operator-=(Fraction& other_fraction)
+Fraction& Fraction::operator-=(Fraction& other_fraction)
 {
 	return *this = *this - other_fraction;
 }
 
-Fraction & Fraction::operator-=(const int other_int)
+Fraction& Fraction::operator-=(const int other_int)
 {
 	return *this = *this - other_int;
 }
@@ -88,12 +88,12 @@ Fraction Fraction::operator*(const int other_int)
 	return multiplication_of_fractions(other_fraction);
 }
 
-Fraction & Fraction::operator*=(Fraction& other_fraction)
+Fraction& Fraction::operator*=(Fraction& other_fraction)
 {
 	return *this = *this * other_fraction;
 }
 
-Fraction & Fraction::operator*=(const int other_int)
+Fraction& Fraction::operator*=(const int other_int)
 {
 	return *this = *this * other_int;
 }
@@ -109,12 +109,12 @@ Fraction Fraction::operator/(const int other_int)
 	return division_of_fractions(other_fraction);
 }
 
-Fraction & Fraction::operator/=(Fraction& other_fraction)
+Fraction& Fraction::operator/=(Fraction& other_fraction)
 {
 	return *this = *this / other_fraction;
 }
 
-Fraction & Fraction::operator/=(const int other_int)
+Fraction& Fraction::operator/=(const int other_int)
 {
 	return *this = *this / other_int;
 }
@@ -133,12 +133,12 @@ Fraction Fraction::operator--(int)
 	return temp_fraction;
 }
 
-Fraction & Fraction::operator++()
+Fraction& Fraction::operator++()
 {
 	return *this += 1;
 }
 
-Fraction & Fraction::operator--()
+Fraction& Fraction::operator--()
 {
 	return *this -= 1;
 }
